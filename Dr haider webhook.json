@@ -1,0 +1,320 @@
+{
+  "name": "Dr haider webhook",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -368,
+        -160
+      ],
+      "id": "7eb3ecb0-b829-4cbb-84a7-ddf47b30ee86",
+      "name": "When chat message received",
+      "webhookId": "a3f5dab8-482f-4b21-a8c0-0c4cb53dce41"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=# Role\n\nYou're a smart and helpful receptionist agent for Dr Haider Clinic.\n\n#How to behave / What to do\n\nThe patients will try to schedule an appointment with Dr Haider.\n\nFirst ask their details like name, age, gender, phone number, email address ,date ,time and what's the problem.\n\nAfter you get these data points, log this in the patient database using the 'add patient' tool.\n\nAfter that you have to check for the free slots on Dr Strange's calendar using tools and suggest the patient with the available time slots for the requested date.\n\nOnce they confirm the slot, you have to block the calendar using 'create new events' tool and send a confirmation email with all the details to the patient on their email address using the 'send message' tool.\n\n\n#Tools available\n\ncreate new events: Use this tool to block the calendar. Before blocking the calendar, use the 'get events' tool to check for available slots.\n\nget events: Use this tool to look for the events on the calendar. This will give you an idea of the available slots.\n\nAdd patient: Use this tool to add the patient details like name, age, gender,date ,time, phone number, email and What's the problem.\n\nsend message: Use this tool to send email to the patients.\n\n# Tone\n\nBe professional, polite, caring.\n\n# Important information\n\nCurrent date and time: {{ $now }}\n\nThe working timings are 9 am to 6 pm. If the patient is asking for a slot before 9 am or after 6 pm, tell them to book the slot for another day.\n\nDon't give slots for a Sunday and public holiday's.\n\nDon't give any slots between 1 pm to 2 pm because this is Doctor's lunch time.\n\n- Block the slot for 30 mins only. Don't give more time that that.\n\nDo not show the events of other patients which are blocked on the calendar to anyone.\n\nDo not take appointments for the dates and time slots which are prior to current date and time (past dates).\n\nPut the Name and problem in the tittle of appointment or in meeting "
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        -32,
+        -160
+      ],
+      "id": "c59ea76f-805b-43a7-8580-1a32e5e474e3",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-5-mini"
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        -416,
+        80
+      ],
+      "id": "caed9a54-28bc-4fd9-9ed2-f277ef8b28b5",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "SMZu8JBLi538oPaV",
+          "name": "n8n free OpenAI API credits"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        -192,
+        128
+      ],
+      "id": "1d430cef-ba72-4021-8ad0-7dee343db9ea",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "haidermirza7072@gmail.com",
+          "mode": "list",
+          "cachedResultName": "haidermirza7072@gmail.com"
+        },
+        "start": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start', ``, 'string') }}",
+        "end": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End', ``, 'string') }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        560,
+        112
+      ],
+      "id": "c6682fc7-7e5e-431f-8953-87933b09dd7a",
+      "name": "Create new events",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "3l2bX1aTL0ufWtm4",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "haidermirza7072@gmail.com",
+          "mode": "list",
+          "cachedResultName": "haidermirza7072@gmail.com"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        432,
+        112
+      ],
+      "id": "592c01fe-57e8-4368-a8db-6340c76ce0be",
+      "name": "Get events",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "3l2bX1aTL0ufWtm4",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1CwbWR72T0y8YbGzEQofm2DzGPMxzNMPu6tfPmOtpAQY",
+          "mode": "list",
+          "cachedResultName": "Mirai Intership Data",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1CwbWR72T0y8YbGzEQofm2DzGPMxzNMPu6tfPmOtpAQY/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 181797655,
+          "mode": "list",
+          "cachedResultName": "Dr Haider Clinic",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1CwbWR72T0y8YbGzEQofm2DzGPMxzNMPu6tfPmOtpAQY/edit#gid=181797655"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Name', ``, 'string') }}",
+            "Age": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Age', ``, 'string') }}",
+            "Gender": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Gender', ``, 'string') }}",
+            "Phone Number ": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Phone_Number_', ``, 'string') }}",
+            "Email": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Email', ``, 'string') }}",
+            "What the Problem": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('What_the_Problem', ``, 'string') }}",
+            "Date": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Date', ``, 'string') }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Age",
+              "displayName": "Age",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Gender",
+              "displayName": "Gender",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone Number ",
+              "displayName": "Phone Number ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "What the Problem",
+              "displayName": "What the Problem",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        288,
+        128
+      ],
+      "id": "8dd7a0fd-f79c-47b4-9af8-aa03bba1ee98",
+      "name": "Add patient",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "7XuFG7LgU9Wzp8m2",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create new events": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get events": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Add patient": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "a69a16f8-4669-44cf-ad78-dd32719ae2c4",
+  "meta": {
+    "instanceId": "200e6d5e0b957c1c3e2b60282fbba05b2224a53fbedf683c8300bd69c5b9b100"
+  },
+  "id": "1_OBjpwd_sRLGMvBgepQc",
+  "tags": []
+}

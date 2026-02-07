@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dr. Haider Clinic</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- 🔹 AOS CSS (SCROLL ANIMATION) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="navbar">
+  <div class="logo">🩺 Dr. Haider Clinic</div>
+  <nav>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#appointment" class="btn">Book Appointment</a>
+  </nav>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" data-aos="fade-up">
+  <div class="hero-content">
+    <h1>Personalized Health Care,<br>Designed for You</h1>
+    <p>Trusted medical care with modern solutions and compassionate consultation.</p>
+    <a href="#appointment" class="btn large">Book Appointment</a>
+  </div>
+</section>
+
+<!-- ================= WHY CHOOSE ================= -->
+<section class="section light" data-aos="fade-up">
+  <h2>Why Choose Dr. Haider?</h2>
+  <div class="cards">
+    <div class="card">10+ Years of Experience</div>
+    <div class="card">Trusted by Thousands</div>
+    <div class="card">Modern Treatment Methods</div>
+    <div class="card">Friendly Consultation</div>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section id="services" class="section" data-aos="fade-up">
+  <h2>How We Help You</h2>
+  <div class="cards">
+    <div class="card">General Health Checkups</div>
+    <div class="card">Emergency Consultation</div>
+    <div class="card">Chronic Disease Care</div>
+    <div class="card">Online Appointment Booking</div>
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about" class="section light" data-aos="fade-up">
+  <h2>About Dr. Haider</h2>
+
+  <div class="about-slider">
+    <div class="slide active">
+      <img src="images/aboout1.jpg" alt="">
+      <h3>Experienced Medical Professional</h3>
+      <p>10+ years of experience delivering patient-first healthcare.</p>
+    </div>
+
+    <div class="slide">
+      <img src="images/aboout2.jpg" alt="">
+      <h3>Patient-Centered Care</h3>
+      <p>Every treatment plan is personalized for individual needs.</p>
+    </div>
+
+    <div class="slide">
+      <img src="images/aboout3.jpg" alt="">
+      <h3>Modern Clinic</h3>
+      <p>Advanced equipment for accurate diagnosis and care.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHAT SECTION ================= -->
+<section class="section" data-aos="fade-up">
+  <h2>Talk With Us</h2>
+  <div class="cards">
+    <div class="card">
+      <img src="images/contact1.jpg" class="icon-img">
+      <h3>Chat with AI 🤖</h3>
+      <p>Instant answers to your health queries.</p>
+    </div>
+    <div class="card">
+      <img src="images/contact2.jpg" class="icon-img">
+      <h3>Telegram Chat 📩</h3>
+      <p>Connect directly on Telegram.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= APPOINTMENT ================= -->
+<section id="appointment" class="section" data-aos="fade-up">
+  <h2>Book an Appointment</h2>
+
+  <form id="appointmentForm" class="form">
+    <input type="text" placeholder="Full Name" required />
+    <input type="email" placeholder="Email" required />
+    <input type="tel" placeholder="Phone Number" required />
+    <input type="date" required />
+    <select required>
+      <option value="">Select Time Slot</option>
+      <option>10:00 AM - 11:00 AM</option>
+      <option>12:00 PM - 01:00 PM</option>
+      <option>04:00 PM - 05:00 PM</option>
+    </select>
+    <textarea placeholder="Describe your problem"></textarea>
+    <button type="submit" class="btn large">Submit</button>
+  </form>
+
+  <div id="popup" class="popup"></div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <p>📍 Ahmedabad | 📞 +91-XXXXXXXXXX</p>
+  <p>© 2026 Dr. Haider Clinic</p>
+</footer>
+
+<!-- 🔹 AOS JS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<!-- Main JS -->
+<script src="js/script.js"></script>
+
+</body>
+</html>
